@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pltshow',
-    version='0.1.0',
+    version='0.1.1',
     description='client for pltshow',
     long_description='client for pltshow to update dataset',
     author='quicksort',
