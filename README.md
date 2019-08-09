@@ -7,11 +7,9 @@ python sdk for pltshow
 ```python
 import pandas as pd
 import pltshow
-username = '....'
-password = '.....'
-plt = pltshow.Client(username, password)
+plt = pltshow.Client('username', 'password')
 
 df = pd.DataFrame(....)
-plt.show(df)
+plt.show('chart_name', df)
 ```
-then open www.pltshow.com in browser, login and then your chart will be there
+then open pltshow.com in browser, login and then your chart will be there

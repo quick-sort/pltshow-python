@@ -2,11 +2,16 @@
 import requests
 import pandas
 
-URL="http://api.pltshow.com"
-
 class Client:
-    def __init__(self, token = None):
-        self.authHeader = {'Authorization' : 'Bearer ' + token}
+    def __init__(self, username = '', password = ''):
+        self.session = requests.Session()
+        r = self.session.post('http://login.pltshow.com/api/login', json={'username': username, 'password': password})
+        if r.status_code < 300:
+            r = self.session.get('http://pltshow.com')
+        if r.status_code > 300:
+            raise Exception('login failed')
 
-    def plot(self, df, chart = 'default'):
-        requests.post('%s/api/csv/%s' % (URL, chart), headers=self.authHeader, data=bytes(json.to_csv(), encoding = "utf8"))
+    def show(self, chart, df):
+        result = self.session.patch('%s/api/charts?name=%s' % ('http://pltshow.com', chart), json={'chart_data': df.to_csv()})
+        if result.status_code > 300:
+            raise Exception(result.text)
